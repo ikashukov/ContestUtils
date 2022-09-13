@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
  * - _getMaxIndex(int[] array)
  * - int[] _concat(int[] array1, int[] array2)
  * - double _logb(double x)
+ * - long _lcd(long a, long b)
  * - _printArray(int[] array)
  * - _printBoolean(boolean b)
  */
@@ -146,6 +147,19 @@ public class Main {
 
   private static double _logb(double x) {
     return Math.log(x) / Math.log(2.0);
+  }
+
+  private static long _lcd(long a, long b) {
+    if(a < b) {
+      long t = a;
+      a = b;
+      b = t;
+    }
+    long t = a%b;
+    if(t == 0) {
+      return b;
+    }
+    return _lcd(b, t);
   }
 
 
