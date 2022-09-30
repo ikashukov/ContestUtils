@@ -23,6 +23,8 @@ import java.util.stream.Collectors;
  * - int[] _concat(int[] array1, int[] array2)
  * - double _logb(double x)
  * - long _lcd(long a, long b)
+ * - BigInteger _factorial(int i)
+ * - BigInteger _pick(int i, int k)
  * - _printArray(int[] array)
  * - _printBoolean(boolean b)
  */
@@ -32,7 +34,7 @@ public class Main {
   public static void main(String[] args) throws IOException {
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     int total = _readInt(reader);
-    for (int i = 0; i < total; i++) {
+    for (int _w = 0; _w < total; _w++) {
       int count = _readInt(reader);
       List<Integer> values = _readIntList(reader);
 
@@ -160,6 +162,25 @@ public class Main {
       return b;
     }
     return _lcd(b, t);
+  }
+
+  private static final Map<Integer, BigInteger> FACTORIALS = new HashMap<>();
+  private static int MAX_F = 1;
+  private static BigInteger _factorial(int i) {
+    FACTORIALS.put(0, BigInteger.ONE);
+    FACTORIALS.put(1, BigInteger.ONE);
+    if(i <= MAX_F) {
+      return FACTORIALS.get(i);
+    }
+    for(int j = MAX_F+1; j <= i; j++) {
+      FACTORIALS.put(j, FACTORIALS.get(j-1).multiply(BigInteger.valueOf(j)));
+    }
+    MAX_F = i;
+    return FACTORIALS.get(i);
+  }
+
+  private static BigInteger _pick(int n, int k) {
+    return _factorial(n).divide(_factorial(k)).divide(_factorial(k));
   }
 
 
