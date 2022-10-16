@@ -9,11 +9,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 /*
  * Reading from STDIN:
  * - Integer _readInt(BufferedReader reader)
+ * - Long _readLong(BufferedReader reader)
  * - BigInteger _readBigInteger(BufferedReader reader)
  * - BigDecimal _readBigDecimal(BufferedReader reader)
  * - List<Integer> _readIntList(BufferedReader reader)
@@ -27,11 +29,13 @@ import java.util.stream.Collectors;
  * - BigInteger _factorial(int i)
  * - BigInteger _pick(int i, int k)
  * - double _sqrt(double x)
+ * - long _sqrt(long x)
+ * - TreeMap<Long, Integer> _findDivisors(long x)
  * - _printArray(int[] array)
  * - _printBoolean(boolean b)
  */
 
-public class Main {
+public class Task {
 
   public static void main(String[] args) throws IOException {
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -53,6 +57,16 @@ public class Main {
     try {
       String s = reader.readLine();
       return Integer.parseInt(s);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  private static Long _readLong(BufferedReader reader) {
+    try {
+      String s = reader.readLine();
+      return Long.parseLong(s);
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -185,8 +199,37 @@ public class Main {
     return _factorial(n).divide(_factorial(k)).divide(_factorial(k));
   }
 
+  private static long _sqrt(long x) {
+    return BigInteger.valueOf(x).sqrt().longValue();
+  }
+
   private static double _sqrt(double x) {
     return BigDecimal.valueOf(x).sqrt(MathContext.DECIMAL128).doubleValue();
+  }
+
+  private static TreeMap<Long, Integer> _findDivisors(long x) {
+    TreeMap<Long, Integer> result = new TreeMap<>();
+    long end = _sqrt(x);
+    if(x % end != 0) {
+      end++;
+    }
+    for (long i = 2; i <= end; i++) {
+      if (i > x) {
+        break;
+      }
+      while (x % i == 0) { // divisor
+        x /= i;
+        if(result.containsKey(i)) {
+          result.put(i, result.get(i) + 1);
+        } else {
+          result.put(i, 1);
+        }
+      }
+    }
+    if(x >= 2L && result.isEmpty()) {
+      result.put(x, 1);
+    }
+    return result;
   }
 
   /* WRITING TO STDOUT */
