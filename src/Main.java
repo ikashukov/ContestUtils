@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.MathContext;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
  * - long _lcd(long a, long b)
  * - BigInteger _factorial(int i)
  * - BigInteger _pick(int i, int k)
+ * - double _sqrt(double x)
  * - _printArray(int[] array)
  * - _printBoolean(boolean b)
  */
@@ -183,6 +185,9 @@ public class Main {
     return _factorial(n).divide(_factorial(k)).divide(_factorial(k));
   }
 
+  private static double _sqrt(double x) {
+    return BigDecimal.valueOf(x).sqrt(MathContext.DECIMAL128).doubleValue();
+  }
 
   /* WRITING TO STDOUT */
 
