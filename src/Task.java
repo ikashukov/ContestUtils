@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
  * - _getMaxIndex(int[] array)
  * - int[] _concat(int[] array1, int[] array2)
  * - double _logb(double x)
- * - long _lcd(long a, long b)
+ * - long _gcd(long a, long b)
  * - BigInteger _factorial(int i)
  * - BigInteger _pick(int i, int k)
  * - double _sqrt(double x)
@@ -167,7 +167,7 @@ public class Task {
     return Math.log(x) / Math.log(2.0);
   }
 
-  private static long _lcd(long a, long b) {
+  private static long _gcd(long a, long b) {
     if(a < b) {
       long t = a;
       a = b;
@@ -177,7 +177,7 @@ public class Task {
     if(t == 0) {
       return b;
     }
-    return _lcd(b, t);
+    return _gcd(b, t);
   }
 
   private static final Map<Integer, BigInteger> FACTORIALS = new HashMap<>();
